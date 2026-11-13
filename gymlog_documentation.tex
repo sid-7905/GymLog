@@ -1,0 +1,156 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\definecolor{codebg}{rgb}{0.96, 0.96, 0.96}
+\definecolor{codeframe}{rgb}{0.85, 0.85, 0.85}
+\lstset{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    tabsize=2,
+    showstringspaces=false
+}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1.5cm}
+    {\Large \textbf{A PROJECT REPORT ON}}\\[0.8cm]
+    {\Huge \textbf{GymLog: Fitness Tracking Mobile Application}}\\[1.2cm]
+    {\large Submitted in partial fulfillment of the requirements\\for the degree of}\\[0.4cm]
+    {\large \textbf{Bachelor of Technology / Computer Science}}\\[2.5cm]
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushleft} \large
+            \emph{Submitted By:}\\
+            \textbf{Siddhesh Pandey}\\
+            Department of Computer Science
+        \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \begin{flushright} \large
+            \emph{Project Guide:}\\
+            \textbf{[Faculty / Guide Name]}\\
+            Assistant Professor
+        \end{flushright}
+    \end{minipage}
+    \vfill
+    {\large \textbf{[Your College / University Name]}}\\[0.2cm]
+    {\large Academic Year 2026--2027}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Executive Summary}
+\textbf{GymLog} is an intuitive, distraction-free mobile fitness tracking application inspired by modern workout loggers such as Hevy. Built using the \textbf{Flutter} framework for the mobile interface and \textbf{Node.js}, \textbf{Express}, and \textbf{MongoDB Atlas} for backend cloud services, GymLog provides an eye-friendly dark theme optimized specifically for strength and resistance training.
+
+\section{Project Scope and Objectives}
+\subsection{Project Objectives}
+\begin{enumerate}[noitemsep]
+    \item To build an intuitive, dark-themed mobile user interface that minimizes cognitive friction during high-intensity gym sessions.
+    \item To implement a secure RESTful backend API using JSON Web Tokens (JWT) for stateless authentication and bcrypt for password encryption.
+    \item To provide interactive live workout session tracking with automated countdown rest timers between sets.
+    \item To unify performance telemetry across multiple routines so that an exercise retains its historical progress regardless of where it is performed.
+    \item To provide social accountability by allowing athletes to publish workout summaries with photos and interact through likes.
+\end{enumerate}
+
+\subsection{In-Scope Features}
+\begin{itemize}[noitemsep]
+    \item \textbf{User Authentication}: Registration, login, and secure local token storage.
+    \item \textbf{Exercise Database}: 80+ default movements categorized by muscle group and equipment.
+    \item \textbf{Routine Management}: Complete CRUD for custom workout routines.
+    \item \textbf{Active Logging}: Set check-off, weight/repetition inputs, dynamic rest timer controls (+30s, Skip).
+    \item \textbf{Progress Analytics}: Time-series charts for workout volume, max weights, and body weight logs.
+    \item \textbf{Workout History}: Detailed inspection, modification, and deletion of past workout sessions.
+    \item \textbf{Community Feed}: Public timeline of completed workouts with captions, media photos, and likes.
+\end{itemize}
+
+\section{System Architecture}
+GymLog employs a Three-Tier Client-Server Architecture:
+\begin{enumerate}
+    \item \textbf{Presentation Tier (Mobile Client)}: Implemented in Flutter with Material 3 Dark theme, utilizing Provider for state management.
+    \item \textbf{Application Tier (API Gateway)}: Implemented using Node.js and Express with JWT authentication middleware.
+    \item \textbf{Data Tier (Database)}: A MongoDB Atlas cloud database storing JSON-like documents via Mongoose schemas.
+\end{enumerate}
+
+\section{Technology Stack}
+\begin{table}[h!]
+    \centering
+    \caption{Summary of Technologies Used}
+    \begin{tabularx}{\textwidth}{l l X}
+        \toprule
+        \textbf{Component} & \textbf{Technology} & \textbf{Role in System} \\
+        \midrule
+        \textbf{Frontend} & Flutter (Dart 3.x) & Cross-platform framework for Android and iOS \\
+        & Provider & Reactive state management \\
+        & fl\_chart & Interactive charting library for progress tracking \\
+        & flutter\_secure\_storage & Hardware-backed keychain/keystore token storage \\
+        & flutter\_dotenv & Environment variable configuration loader \\
+        \midrule
+        \textbf{Backend} & Node.js 20+ & Asynchronous server runtime \\
+        & Express.js 5.x & RESTful API routing and middleware framework \\
+        & Mongoose 9.x & Object Data Modeling (ODM) for MongoDB \\
+        & jsonwebtoken & Stateless user authentication mechanism \\
+        & bcryptjs & One-way password hashing algorithm \\
+        & cors & Cross-Origin Resource Sharing handling \\
+        \midrule
+        \textbf{Database} & MongoDB Atlas & Managed cloud NoSQL document database \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\section{Installation and Setup Guide}
+\subsection{Prerequisites}
+Node.js (v18+), Flutter SDK (v3.19+), and access to MongoDB Atlas.
+
+\subsection{Backend Setup}
+\begin{lstlisting}[language=bash]
+cd gymlog_backend
+npm install
+npm run seed  # Populates demo athlete profile (siddhesh@gymlog.app / password123)
+npm start
+\end{lstlisting}
+
+\subsection{Frontend Setup}
+\begin{lstlisting}[language=bash]
+cd gymlog
+flutter pub get
+flutter run
+\end{lstlisting}
+
+\section{API Reference}
+\begin{itemize}[noitemsep]
+    \item \textbf{POST /api/auth/register}: Creates a new user profile.
+    \item \textbf{POST /api/auth/login}: Verifies credentials and returns a JWT.
+    \item \textbf{GET /api/routines} \& \textbf{POST /api/routines}: Read and create workout routines.
+    \item \textbf{POST /api/workouts}: Logs a completed workout session with sets, reps, and media.
+    \item \textbf{GET /api/workouts/exercise-history/:name}: Cross-routine progression history.
+    \item \textbf{GET /api/bodyweight} \& \textbf{POST /api/bodyweight}: Body weight tracking.
+    \item \textbf{GET /api/feed} \& \textbf{POST /api/feed/:id/like}: Community feed interactions.
+\end{itemize}
+
+\section{Conclusion}
+The GymLog project successfully demonstrates the design and implementation of a full-stack mobile application for fitness tracking, combining a high-performance Flutter mobile client with a scalable Node.js and MongoDB cloud backend.
+
+\end{document}
