@@ -16,7 +16,7 @@ Future<void> main() async {
     await dotenv.load(fileName: ".env");
   } catch (e) {
     debugPrint("Note: .env file loading: $e");
-    dotenv.loadFromString(envString: 'API_BASE_URL=http://192.168.0.101:5000/api');
+    dotenv.loadFromString(envString: 'API_BASE_URL=https://gymlogbackend.onrender.com/api');
   }
 
   runApp(const GymLogApp());

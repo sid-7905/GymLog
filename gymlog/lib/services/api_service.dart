@@ -41,7 +41,7 @@ class ApiService {
     }
 
     if (url == null || url.isEmpty) {
-      url = 'http://192.168.0.101:5000/api';
+      url = 'https://gymlogbackend.onrender.com/api';
     }
 
     // Automatically adapt 10.0.2.2 for desktop / web environments
